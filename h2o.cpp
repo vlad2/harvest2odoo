@@ -7,6 +7,7 @@
  * history
  * 22.10.2015 - properly replace decimal point to accept >=10 hours
  * 27.10.2016 - add notes to task description
+ * 30.01.2017 - read harvest csv date in yyyy-mm-dd format
  */
 
 #include <cstdlib>
@@ -81,11 +82,12 @@ int main (int argc, char **argv)
 		// ignore leading whitespaces, skip empty lines
 		if ((linein >> ws).peek () == EOF)
 			continue;
-		// read date in dd/mm/yyyy format
+			
+		// read date
 		{
 			int dd, mm, yyyy;
 			char c, date[11];
-			linein >> dd >> c >> mm >> c >> yyyy >> c;
+			linein >> yyyy >> c >> mm >> c >> dd >> c;
 			if (linein.fail ())
 				error_exit (f, g, "Fail to read date at line ", i);
 			snprintf (date, sizeof (date), "%4d-%02d-%02d", yyyy, mm, dd);
@@ -93,6 +95,7 @@ int main (int argc, char **argv)
 			if (lineout.fail ())
 				error_exit (f, g, "Fail to write date at line ", i);
 		}
+		
 		// read client
 		{
 			char cl[SIZE];
