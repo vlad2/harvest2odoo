@@ -7,7 +7,6 @@
  * history
  * 22.10.2015 - properly replace decimal point to accept >=10 hours
  * 27.10.2016 - add notes to task description
- * 30.01.2017 - read harvest csv date in yyyy-mm-dd format
  */
 
 #include <cstdlib>
@@ -18,7 +17,7 @@
 using namespace std;
 
 #define SIZE	1024
-#define PCOUNT	12
+#define PCOUNT	18
 
 void error_exit (string msg);
 void error_exit (fstream& f, string msg);
@@ -35,8 +34,14 @@ const char* pmap[2*PCOUNT] = {
 	"__export__.account_analytic_account_44","PwC",
 	"__export__.account_analytic_account_55","Bar",
 	"__export__.account_analytic_account_56","XPO",
+	"__export__.account_analytic_account_76","ZES",
 	"__export__.account_analytic_account_73","Int",
-	"__export__.account_analytic_account_76","ZES"
+	"__export__.account_analytic_account_72","Cir",
+	"__export__.account_analytic_account_83","Gai",
+	"__export__.account_analytic_account_87","Web",
+	"__export__.account_analytic_account_88","Com",
+	"__export__.account_analytic_account_113","Qua",
+	"__export__.account_analytic_account_120","Sta"
 };
 
 int lookup_project (int code)
@@ -82,8 +87,7 @@ int main (int argc, char **argv)
 		// ignore leading whitespaces, skip empty lines
 		if ((linein >> ws).peek () == EOF)
 			continue;
-			
-		// read date
+		// read date in yyyy/mm/dd format
 		{
 			int dd, mm, yyyy;
 			char c, date[11];
@@ -95,7 +99,6 @@ int main (int argc, char **argv)
 			if (lineout.fail ())
 				error_exit (f, g, "Fail to write date at line ", i);
 		}
-		
 		// read client
 		{
 			char cl[SIZE];
