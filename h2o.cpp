@@ -17,7 +17,7 @@
 using namespace std;
 
 #define SIZE	1024
-#define PCOUNT	18
+#define PCOUNT	19
 
 void error_exit (string msg);
 void error_exit (fstream& f, string msg);
@@ -41,7 +41,8 @@ const char* pmap[2*PCOUNT] = {
 	"__export__.account_analytic_account_87","Web",
 	"__export__.account_analytic_account_88","Com",
 	"__export__.account_analytic_account_113","Qua",
-	"__export__.account_analytic_account_120","Sta"
+	"__export__.account_analytic_account_120","Sta",
+    "__export__.account_analytic_account_153","Fea"
 };
 
 int lookup_project (int code)
